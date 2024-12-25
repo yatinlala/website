@@ -1,16 +1,59 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>yatin l.</title>
-    <meta name="description" content="personal website" />
-    <meta name="author" content="yatin l." />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yatin Lala</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Work in Progress!</h1>
-    <img src="construction_worker.png" />
-    <script src="index.js"></script>
+    <div class="desktop-icon" id="about-icon">
+      <div class="desktop-icon-image">
+        <img
+          src="about_me.png"
+          alt="About Me"
+          style="width: 32px; height: 32px"
+        />
+      </div>
+      <div class="desktop-icon-label">About Me</div>
+    </div>
+
+    <div class="desktop-icon" id="terminal-icon" style="top: 120px; left: 20px">
+      <div class="desktop-icon-image">
+        <img
+          src="console.png"
+          alt="Terminal"
+          style="width: 32px; height: 32px"
+        />
+      </div>
+      <div class="desktop-icon-label">Terminal</div>
+    </div>
+
+    <div
+      class="window-container"
+      id="initial-terminal"
+      style="
+        position: absolute;
+        width: 600px;
+        height: 500px;
+        top: 30%;
+        left: 50%;
+      "
+    ></div>
+
+    <div
+      class="window-container"
+      id="initial-about"
+      style="
+        position: absolute;
+        width: 400px;
+        height: 350px;
+        top: 20%;
+        left: 20%;
+      "
+    ></div>
+
+    <script src="script.js"></script>
   </body>
 </html>
