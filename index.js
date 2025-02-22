@@ -1,48 +1,85 @@
 const crtGrid = document.getElementById("crt-grid");
 
-const setupCRTGrid = () => {
-  const cols = Math.floor(window.innerWidth / 20);
-  const rows = Math.floor(window.innerHeight / 20);
+// function fileClick() {
+//   console.log("file click!");
+//   const fooElements = document.querySelectorAll(".file");
+//   console.log(fooElements);
+//   fooElements.forEach((element) => {
+//     console.log("eventListener!");
+//     element.addEventListener("click", (e) => {
+//       console.log("click!");
+//     });
+//   });
+// }
 
-  crtGrid.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
-  crtGrid.style.gridTemplateRows = `repeat(${rows}, 20px)`;
+const setupCRTGrid = () => {
+  // rows and cols should be updated on every window resize
+  var rows = Math.floor(window.innerHeight / 20);
+  var cols = Math.floor(window.innerWidth / 20);
+
+  // crtGrid.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
+  // crtGrid.style.gridTemplateRows = `repeat(${rows}, 20px)`;
 
   crtGrid.textContent = "";
 
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
+  function createSpan(char, classname) {
+    if (char == null || char.length < 1) {
+      console.log("Invalid param passed to createSpan");
+    }
+    while (char.length > 0) {
       const span = document.createElement("span");
-      span.textContent = "•";
+      span.textContent = char.substring(0, 1);
+      if (classname != null) {
+        span.className = classname;
+      }
       crtGrid.appendChild(span);
+      char = char.substring(1);
     }
   }
+  const file = "^File";
+  createSpan(file, "menubar file");
+  const edit = "^Edit";
+  createSpan(edit, "menubar edit");
+  const view = "^View";
+  createSpan(view, "menubar view");
+  const menubarTextLength = file.length + edit.length + view.length;
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      // Compensate for menubarText creating spans
+      if (x == 0 && y == 0) {
+        x = menubarTextLength - 1;
+      } else if (x == cols - 1 && y == rows - 1) createSpan("G", "bottom");
+      else {
+        const span = document.createElement("span");
+        span.textContent = "•";
+        crtGrid.appendChild(span);
+      }
+    }
+  }
+  const bottom = document.querySelector(".bottom");
+  console.log(bottom);
+  bottom.addEventListener("click", (event) => {
+    console.log("clicked!");
+  });
+  // crtGrid.addEventListener("click", (e) => {
+  //   if (e.target.classList.contains("bottom")) {
+  //     console.log("click!");
+  //   }
+  // });
 };
 
 const randomBlink = () => {
   const spans = crtGrid.querySelectorAll("span");
   spans.forEach((span) => {
-    if (Math.random() < 0.08) {
+    if (Math.random() < 0.003) {
+      const oldContent = span.textContent;
       span.textContent = "*";
       setTimeout(() => {
-        span.textContent = "•";
+        span.textContent = oldContent;
       }, 100);
     }
   });
-};
-
-const scanlineEffect = () => {
-  const spans = crtGrid.querySelectorAll("span");
-  const cols = Math.floor(window.innerWidth / 20);
-  const rows = Math.floor(window.innerHeight / 20);
-  let currentRow = 0;
-
-  setInterval(() => {
-    for (let i = 0; i < spans.length; i++) {
-      const row = Math.floor(i / cols);
-      spans[i].textContent = row === currentRow ? "-" : "•";
-    }
-    currentRow = (currentRow + 1) % rows;
-  }, 100);
 };
 
 const toggleSubmenu = () => {
@@ -123,9 +160,34 @@ const makeDraggable = (window) => {
 
 window.addEventListener("resize", setupCRTGrid);
 setupCRTGrid();
+
 setInterval(randomBlink, 200);
+
+const scanlineEffect = () => {
+  const spans = crtGrid.querySelectorAll("span");
+  let currentRow = 0;
+
+  var rows = Math.floor(window.innerHeight / 20);
+  var cols = Math.floor(window.innerWidth / 20);
+
+  setInterval(() => {
+    //     for (let i = 0; i < spans.length; i++) {
+    spans.forEach((span, i) => {
+      //       spans[i].textContent = row === currentRow ? "-" : "•";
+      const row = Math.floor(i / cols);
+      if (row === currentRow) {
+        span.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+      } else {
+        span.style.backgroundColor = "transparent";
+      }
+    });
+
+    currentRow = (currentRow + 1) % rows;
+  }, 100);
+};
+
 scanlineEffect();
 
 // Initialize with one text window and one image window
-spawnWindow("text");
-spawnWindow("image");
+// spawnWindow("text");
+// spawnWindow("image");
