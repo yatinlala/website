@@ -5,156 +5,16 @@
   font-style: normal;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 html,
 body {
-  width: 100%;
-  height: 100%;
   overflow: hidden;
-  font-family: monospace;
-  background-color: #282828;
-  color: #ebdbb2;
-}
-.toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #3c3836;
-  color: #ebdbb2;
-  display: flex;
-  padding: 5px;
-  z-index: 2;
-}
-.toolbar .menu {
-  margin-right: 20px;
-  cursor: pointer;
-}
-.submenu {
-  display: none;
-  position: absolute;
-  background-color: #3c3836;
-  border: 1px solid #504945;
-  top: 25px;
-  left: 5px;
-  z-index: 3;
-}
-.submenu button {
-  background: none;
-  border: none;
-  color: #ebdbb2;
-  padding: 5px 20px;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-}
-.submenu button:hover {
-  background-color: #504945;
-}
-.window {
-  position: absolute;
-  border: 2px solid #504945;
-  background-color: #3c3836;
-  color: #ebdbb2;
-  resize: none;
-  overflow: hidden;
-  font-size: 18px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-.window .toolbar {
-  background-color: #665c54;
-  padding: 5px;
-  cursor: move;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.window .toolbar .close-btn {
-  background-color: #cc241d;
-  color: #ebdbb2;
-  border: none;
-  padding: 0 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-.window .content {
-  padding: 10px;
-  height: calc(100% - 30px);
-  overflow: auto;
-}
-#crt-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 20px);
-  grid-template-rows: repeat(auto-fill, 20px);
-  pointer-events: none;
-  z-index: 0;
-}
-#crt-grid span {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #a89984;
-  border: 1px solid #504945;
-  box-sizing: border-box;
+  font-family: "Terminus";
 }
 
-/* * { */
-/*   cursor: none; */
-/* } */
-
-/* body { */
-/*   overflow: hidden; */
-/*   line-height: 1.2; */
-/*   /* cursor: none; /* Hide the default cursor */
-/* } */
-
-/* body { */
-/*   margin: 0; */
-/*   padding: 0; */
-/*   border: 0; */
-/*   overflow-y: hidden; /* disable vertical page scroll */
-/*   background-color: #282828; */
-/*   color: #a89984; */
-/*   font-family: "Terminus"; */
-/*   font-size: 2em; */
-/* } */
-
-/* .grid { */
-/*   display: grid; */
-/*   grid-template-columns: repeat(auto-fill, 20px); */
-/*   position: absolute; */
-/*   top: 0; */
-/*   left: 0; */
-/*   width: 100vw; */
-/*   height: 100vh; */
-/* cursor: none;
-  pointer-events: none; /* Allow mouse events to pass through
+h1 {
+  text-align: center;
 }
-
-/* .container { */
-/*   width: 100%;  /* Set width to the viewport width */
-/*   height: 100%; /* Set height to the viewport height */
-/*   overflow-wrap: anywhere;   */
-/*   z-index: -1; */
-/* } */
-
-/* .cursor { */
-/*   position: absolute; */
-/*   width: 20px; */
-/*   height: 24px; */
-/*   background: rgba(255, 255, 255, 0.2); */
-/*   border: 1px solid #fff; */
-/*   pointer-events: none; /* Prevent interaction */
-/* } */
+img {
+  margin: auto;
+  width: 50%;
+}
