@@ -267,7 +267,7 @@ Type "help" for available commands.
 
   executeCommand(command) {
     const parts = command.split(" ");
-    const cmd = parts[0]
+    const cmd = parts[0];
     const args = parts.slice(1);
 
     switch (cmd) {
@@ -498,7 +498,41 @@ function createAboutMeHTML() {
         <p style="margin: 5px 0;">Email: yatin [dot] lala [at] gmail [dot] com</p>
         <p style="margin: 5px 0;">GitHub: <a href="https://github.com/yatinlala">github.com/yatinlala</a></p>
         <p style="margin: 5px 0;">LinkedIn: <a href="https://linkedin.com/in/yatinlala">linkedin.com/in/yatinlala</a></p>
+        <ul class="tree-view">
+            <details open>
+              <summary>Todos:</summary>
+              <ul>
+                <li>
+                  <details>
+                    <summary>Fixes</summary>
+                    <ul>
+                      <li>Make selected desktop icons look more like Win98</li>
+                      <li>De-OOP-ify the code (👿 claude)</li>
+                      <li>Move window templates into independent files?</li>
+                    </ul>
+                  </details>
+                  <details>
+                    <summary>Features</summary>
+                    <ul>
+                      <li>Notepad</li>
+                      <li>Taskbar?</li>
+                      <summary>Terminal</summary>
+                      <ul>
+                        <li>mkdir</li>
+                        <li>pipes</li>
+                        <li>vi</li>
+                    </ui>
+                  </details>
+                  </ul>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+
+      <p><i>Made with <a href='https://jdan.github.io/98.css/'>98.css</a>.</i></p>
       </div>
+
       <!-- Resize Handles -->
       <div class="resize-handle edge top"></div>
       <div class="resize-handle edge bottom"></div>
