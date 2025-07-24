@@ -506,6 +506,7 @@ function createAboutMeHTML() {
                   <details>
                     <summary>Fixes</summary>
                     <ul>
+                      <li><strong>Mobile support (dragging windows is broken)</strong></li>
                       <li>Make selected desktop icons look more like Win98</li>
                       <li>De-OOP-ify the code (👿 claude)</li>
                       <li>Move window templates into independent files?</li>
@@ -514,10 +515,12 @@ function createAboutMeHTML() {
                   <details>
                     <summary>Features</summary>
                     <ul>
+                      <li>Right click menu</li>
                       <li>Notepad</li>
                       <li>Taskbar?</li>
                       <summary>Terminal</summary>
                       <ul>
+                        <li>Tab complete</li>
                         <li>mkdir</li>
                         <li>pipes</li>
                         <li>vi</li>
