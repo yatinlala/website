@@ -216,28 +216,25 @@ class Terminal {
         contents: {
           "about.txt": {
             type: "file",
-            content:
-              "Hi! I'm Yatin, a software developer.\nI love building things and solving problems.\nWelcome to my retro terminal website!",
+            content: "<placeholder>",
           },
           "projects.txt": {
             type: "file",
-            content:
-              "My Projects:\n- Personal Website (this!)\n- Various web applications\n- Open source contributions\n- And more coming soon...",
+            content: "<placeholder>",
           },
           "contact.txt": {
             type: "file",
             content:
-              "Get in touch:\nEmail: hello@yatin.cc\nLinkedIn: linkedin.com/in/yatinlala\nGitHub: github.com/yatinlala",
+              "Get in touch:\nEmail: yatin [dot] lala [at] gmail [dot] com\nLinkedIn: linkedin.com/in/yatinlala\nGitHub: github.com/yatinlala",
           },
           "skills.txt": {
             type: "file",
-            content:
-              "Technical Skills:\n- JavaScript/TypeScript\n- Python\n- React/Node.js\n- Web Development\n- System Design\n- Problem Solving",
+            content: "<placeholder>",
           },
           "readme.txt": {
             type: "file",
             content:
-              'Welcome to my terminal!\n\nAvailable commands:\n- ls: list files and directories\n- cat <filename>: display file contents\n- help: show available commands\n- clear: clear the terminal\n\nTry "ls" to see what\'s here!',
+              "Available commands:\n- ls: list files and directories\n- cat <filename>: display file contents\n- help: show available commands\n- clear: clear the terminal",
           },
         },
       },
@@ -376,21 +373,25 @@ Try these files:
   }
 }
 
-function createNewTerminal() {
+function createNewTerminal(cssOverrides = {}, focus=true) {
   terminalCounter++;
 
   const outputId = `terminal-output-${terminalCounter}`;
   const inputId = `terminal-input-${terminalCounter}`;
 
+  const defaultStyles = {
+    position: "absolute",
+    width: "600px",
+    height: "500px",
+    top: `${50 + terminalCounter * 30}px`,
+    left: `${100 + terminalCounter * 30}px`,
+  };
+
+  const finalStyles = { ...defaultStyles, ...cssOverrides };
+
   const newTerminalContainer = document.createElement("div");
   newTerminalContainer.className = "window-container";
-  newTerminalContainer.style.cssText = `
-    position: absolute;
-    width: 600px;
-    height: 500px;
-    top: ${50 + terminalCounter * 30}px;
-    left: ${100 + terminalCounter * 30}px;
-  `;
+  Object.assign(newTerminalContainer.style, finalStyles);
 
   newTerminalContainer.innerHTML = createTerminalHTML(outputId, inputId);
   document.body.appendChild(newTerminalContainer);
@@ -401,26 +402,32 @@ function createNewTerminal() {
   const inputElement = document.getElementById(inputId);
   const newTerminal = new Terminal(outputElement, inputElement);
 
-  inputElement.focus();
+  if (focus)
+    inputElement.focus();
 
   const windowManager = windows.get(newTerminalContainer);
   if (windowManager) {
-    windowManager.focusWindow();
+    if (focus)
+      windowManager.focusWindow();
   }
 }
 
-function createNewAboutMe() {
+function createNewAboutMe(cssOverrides = {}, focus=true) {
   aboutCounter++;
 
   const newAboutContainer = document.createElement("div");
   newAboutContainer.className = "window-container";
-  newAboutContainer.style.cssText = `
-    position: absolute;
-    width: 400px;
-    height: 350px;
-    top: ${80 + aboutCounter * 25}px;
-    left: ${150 + aboutCounter * 25}px;
-  `;
+
+  defaultStyles = {
+    position: "absolute",
+    width: "400px",
+    height: "400px",
+    top: `${80 + aboutCounter * 25}px`,
+    left: `${150 + aboutCounter * 25}px`,
+  };
+
+  const finalStyles = { ...defaultStyles, ...cssOverrides };
+  Object.assign(newAboutContainer.style, finalStyles);
 
   newAboutContainer.innerHTML = createAboutMeHTML();
   document.body.appendChild(newAboutContainer);
@@ -429,7 +436,8 @@ function createNewAboutMe() {
 
   const windowManager = windows.get(newAboutContainer);
   if (windowManager) {
-    windowManager.focusWindow();
+    if (focus)
+      windowManager.focusWindow();
   }
 }
 
@@ -481,9 +489,15 @@ function createAboutMeHTML() {
         </div>
       </div>
       <div class="window-body" style="height: calc(100% - 60px); padding: 15px; background: #c0c0c0; overflow-y: auto; font-family: 'MS Sans Serif', sans-serif; font-size: 11px;">
-        <h3 style="margin: 0 0 10px 0; font-size: 12px;">Yatin Lala</h3>
+      <!-- <h3 style="margin: 0 0 10px 0; font-size: 12px;">Yatin Lala</h3> -->
       <!-- <p style="margin: 5px 0;"><strong>Software Developer</strong></p> -->
-        <p style="margin: 10px 0 5px 0;">Hi! This is a work in progress site.</p>
+        <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Intro:</h4>
+        <p style="margin: 10px 0 5px 0;">My name is Yatin. 👋</p>
+        <p style="margin: 0px 0 5px 0;">I like learning about software, music, and running.</p>
+        <p style="margin: 0px 0 5px 0;">Don't hesitate to reach out!</p>
+
+     <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Location:</h4>
+     <p>Bay Area</p>
         
      <!--    <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Skills:</h4> -->
      <!--    <ul style="margin: 5px 0; padding-left: 20px;"> -->
@@ -688,41 +702,6 @@ function updateIconSelection(
   });
 }
 
-let terminalCounter = 1;
-let aboutCounter = 1;
-
-let windows = new Map();
-let activeWindow = null;
-let highestZIndex = 10;
-
-let isSelecting = false;
-let selectionStart = { x: 0, y: 0 };
-let selectionRect = null;
-let selectedIcons = new Set();
-let isCtrlHeldDuringSelection = false;
-
-let isDraggingIcon = false;
-let dragStartPos = { x: 0, y: 0 };
-let iconStartPositions = new Map();
-
-const initialTerminalContainer = document.getElementById("initial-terminal");
-initialTerminalContainer.innerHTML = createTerminalHTML(
-  "terminal-output",
-  "terminal-input",
-);
-
-windows.set(initialTerminalContainer, new Window(initialTerminalContainer));
-
-const initialOutput = document.getElementById("terminal-output");
-const initialInput = document.getElementById("terminal-input");
-const terminal = new Terminal(initialOutput, initialInput);
-
-const initialAboutContainer = document.getElementById("initial-about");
-initialAboutContainer.innerHTML = createAboutMeHTML();
-windows.set(initialAboutContainer, new Window(initialAboutContainer));
-
-setupIconHandlers();
-
 // {{{ Event Listeners
 document.addEventListener("mousemove", (e) => {
   if (activeWindow) {
@@ -806,3 +785,25 @@ document.addEventListener("mousedown", (e) => {
   }
 });
 // }}}
+
+let terminalCounter = 1;
+let aboutCounter = 1;
+
+let windows = new Map();
+let activeWindow = null;
+let highestZIndex = 10;
+
+let isSelecting = false;
+let selectionStart = { x: 0, y: 0 };
+let selectionRect = null;
+let selectedIcons = new Set();
+let isCtrlHeldDuringSelection = false;
+
+let isDraggingIcon = false;
+let dragStartPos = { x: 0, y: 0 };
+let iconStartPositions = new Map();
+
+createNewTerminal({ top: "30%", left: "50%" }, focus=false);
+createNewAboutMe({top: "20%", left: "10%"}, focus=false);
+
+setupIconHandlers();
