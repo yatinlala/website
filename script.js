@@ -490,15 +490,11 @@ function createAboutMeHTML() {
       </div>
       <div class="window-body" style="height: calc(100% - 60px); padding: 15px; background: #c0c0c0; overflow-y: auto; font-family: 'MS Sans Serif', sans-serif; font-size: 11px;">
       <!-- <h3 style="margin: 0 0 10px 0; font-size: 12px;">Yatin Lala</h3> -->
-      <!-- <p style="margin: 5px 0;"><strong>Software Developer</strong></p> -->
-        <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Intro:</h4>
+        <p style="margin: 0px 0;"><strong>Intro:</strong></p>
+        <!-- <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Intro:</h4> -->
         <p style="margin: 10px 0 5px 0;">My name is Yatin. 👋</p>
-        <p style="margin: 0px 0 5px 0;">I like learning about software, music, and running.</p>
-        <p style="margin: 0px 0 5px 0;">Don't hesitate to reach out!</p>
+        <p style="margin: 0px 0 5px 0;">I enjoy spending time on software, music, and jogging. Let's get in touch!</p>
 
-     <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Location:</h4>
-     <p>Bay Area</p>
-        
      <!--    <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Skills:</h4> -->
      <!--    <ul style="margin: 5px 0; padding-left: 20px;"> -->
       <!--     <li>JavaScript/TypeScript</li> -->
@@ -512,6 +508,10 @@ function createAboutMeHTML() {
         <p style="margin: 5px 0;">Email: yatin [dot] lala [at] gmail [dot] com</p>
         <p style="margin: 5px 0;">GitHub: <a href="https://github.com/yatinlala">github.com/yatinlala</a></p>
         <p style="margin: 5px 0;">LinkedIn: <a href="https://linkedin.com/in/yatinlala">linkedin.com/in/yatinlala</a></p>
+
+        <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Location:</h4>
+        <p>Bay Area</p>
+        
         <ul class="tree-view">
             <details open>
               <summary>Todos:</summary>
