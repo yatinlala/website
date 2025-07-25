@@ -4,6 +4,8 @@ body {
   background: #008080;
   font-family: "MS Sans Serif", sans-serif;
   overflow: hidden;
+  min-height: 100vh;
+  cursor: url('cursors/Cursor79.cur'), pointer;
 }
 
 .window {
@@ -11,11 +13,11 @@ body {
 }
 
 .title-bar {
-  cursor: grab;
+  cursor: url('cursors/Cursor107.cur'), grab;
 }
 
 .title-bar:active {
-  cursor: grabbing;
+  cursor: url('cursors/Cursor107.cur'), grab;
 }
 
 .window-container {
@@ -32,7 +34,7 @@ body {
 }
 
 .window-container.dragging {
-  cursor: grabbing;
+  cursor: url('cursors/Cursor107.cur'), grab;
 }
 
 .resize-handle {
@@ -186,7 +188,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: url('cursors/Cursor79.cur'), pointer;
   padding: 8px;
   border-radius: 4px;
   user-select: none;
