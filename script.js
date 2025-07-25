@@ -7,7 +7,7 @@ class Window {
     this.isResizing = false;
     this.dragOffset = { x: 0, y: 0 };
     this.resizeHandle = null;
-    this.minWidth = 400;
+    this.minWidth = 350;
     this.minHeight = 300;
     this.savedState = null;
 
@@ -420,7 +420,7 @@ function createNewAboutMe(cssOverrides = {}, focus=true) {
 
   defaultStyles = {
     position: "absolute",
-    width: "400px",
+    width: "350px",
     height: "400px",
     top: `${80 + aboutCounter * 25}px`,
     left: `${150 + aboutCounter * 25}px`,
