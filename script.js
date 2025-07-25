@@ -547,7 +547,7 @@ function createAboutMeHTML() {
           </li>
         </ul>
 
-      <p><i>Made with <a href='https://jdan.github.io/98.css/'>98.css</a>. Cursors from <a href="http://www.rw-designer.com/cursor-set/windows-98">VladYtRO</a>.</i></p>
+      <p><i>Styling via <a href='https://jdan.github.io/98.css/'>98.css</a>. Cursors from <a href="http://www.rw-designer.com/cursor-set/windows-98">VladYtRO</a>. Favicon made using <a href='https://favicon.cc'>favicon.cc</a>.</i></p>
       </div>
 
       <!-- Resize Handles -->
