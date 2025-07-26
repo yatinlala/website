@@ -32,5 +32,168 @@
     </div>
 
     <script src="script.js"></script>
+
+    <template id="terminal-template">
+      <div class="window">
+        <div class="title-bar">
+          <div class="title-bar-text">Terminal - yatin.cc</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button class="maximize-button" aria-label="Maximize"></button>
+            <button
+              aria-label="Close"
+              onclick="this.closest('.window-container').remove()"
+            ></button>
+          </div>
+        </div>
+        <div
+          class="window-body terminal-body"
+          style="height: calc(100% - 60px)"
+        >
+          <div class="terminal-output"></div>
+          <div class="terminal-input-line">
+            <span class="terminal-prompt">C:\></span>
+            <input type="text" class="terminal-input" autofocus />
+          </div>
+        </div>
+        <!-- Resize Handles -->
+        <div class="resize-handle edge top"></div>
+        <div class="resize-handle edge bottom"></div>
+        <div class="resize-handle edge left"></div>
+        <div class="resize-handle edge right"></div>
+        <div class="resize-handle corner top-left"></div>
+        <div class="resize-handle corner top-right"></div>
+        <div class="resize-handle corner bottom-left"></div>
+        <div class="resize-handle corner bottom-right"></div>
+      </div>
+    </template>
+
+    <template id="about-me-template">
+      <div class="window">
+        <div class="title-bar">
+          <div class="title-bar-text">About Me - yatin.cc</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button class="maximize-button" aria-label="Maximize"></button>
+            <button
+              aria-label="Close"
+              onclick="this.closest('.window-container').remove()"
+            ></button>
+          </div>
+        </div>
+        <div
+          class="window-body"
+          style="
+            height: calc(100% - 60px);
+            overflow-y: auto;
+            /* font-family: 'MS Sans Serif', sans-serif; */
+            font-size: 12px;
+          "
+        >
+          <!-- <h3 style="margin: 0 0 10px 0; font-size: 12px;">Yatin Lala</h3> -->
+          <p style="margin: 0px 0"><strong>Intro:</strong></p>
+          <!-- <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Intro:</h4> -->
+          <p style="margin: 10px 0 5px 0">My name is Yatin. 👋</p>
+          <p style="margin: 0px 0 5px 0">
+            I enjoy spending time on software, music, and jogging. Let's get in
+            touch!
+          </p>
+
+          <!--    <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Skills:</h4> -->
+          <!--    <ul style="margin: 5px 0; padding-left: 20px;"> -->
+          <!--     <li>JavaScript/TypeScript</li> -->
+          <!--     <li>Python</li> -->
+          <!--     <li>React/Node.js</li> -->
+          <!--     <li>Web Development</li> -->
+          <!--     <li>System Design</li> -->
+          <!--   </ul> -->
+
+          <h4 style="margin: 15px 0 5px 0; font-size: 11px">Contact:</h4>
+          <p style="margin: 5px 0">
+            Email: yatin [dot] lala [at] gmail [dot] com
+          </p>
+          <p style="margin: 5px 0">
+            GitHub:
+            <a href="https://github.com/yatinlala">github.com/yatinlala</a>
+          </p>
+          <p style="margin: 5px 0">
+            LinkedIn:
+            <a href="https://linkedin.com/in/yatinlala"
+              >linkedin.com/in/yatinlala</a
+            >
+          </p>
+
+          <h4 style="margin: 15px 0 5px 0; font-size: 11px">Location:</h4>
+          <p>Bay Area</p>
+
+          <ul class="tree-view">
+            <li>
+            <details open>
+              <summary>Todos:</summary>
+              <ul>
+                <li>
+                  <details>
+                    <summary>Fixes</summary>
+                    <ul>
+                      <li>
+                        <strong
+                          >Mobile support (dragging windows is broken)</strong
+                        >
+                      </li>
+                      <li>Make selected desktop icons look more like Win98</li>
+                      <li>De-OOP-ify the code (👿 claude)</li>
+                    </ul>
+                  </details>
+                  <details>
+                    <summary>Features</summary>
+                    <ul>
+                      <li>Right click menu</li>
+                      <li>Notepad</li>
+                      <li>Taskbar?</li>
+                      <summary>Terminal</summary>
+                      <ul>
+                        <li>Tab complete</li>
+                        <li>mkdir</li>
+                        <li>pipes</li>
+                        <li>vi</li>
+                      </ul>
+                    </details>
+                  </ul>
+                </li>
+            </details>
+            </li>
+            <li>
+              <details>
+                <summary>Completed</summary>
+                  <ul>
+                      <li>Use HTML templates instead of inline strings for windows</li>
+                  </ul>
+              </details>
+            </li>
+          </ul>
+
+          <p>
+            <i
+              >Styling via <a href="https://jdan.github.io/98.css/">98.css</a>.
+              Cursors from
+              <a href="http://www.rw-designer.com/cursor-set/windows-98"
+                >VladYtRO</a
+              >. Favicon made using
+              <a href="https://favicon.cc">favicon.cc</a>.</i
+            >
+          </p>
+        </div>
+
+        <!-- Resize Handles -->
+        <div class="resize-handle edge top"></div>
+        <div class="resize-handle edge bottom"></div>
+        <div class="resize-handle edge left"></div>
+        <div class="resize-handle edge right"></div>
+        <div class="resize-handle corner top-left"></div>
+        <div class="resize-handle corner top-right"></div>
+        <div class="resize-handle corner bottom-left"></div>
+        <div class="resize-handle corner bottom-right"></div>
+      </div>
+    </template>
   </body>
 </html>

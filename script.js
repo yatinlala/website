@@ -1,3 +1,20 @@
+let windows = new Map();
+let terminalCounter = 1;
+let aboutCounter = 1;
+
+let activeWindow = null;
+let highestZIndex = 10;
+
+let isSelecting = false;
+let selectionStart = { x: 0, y: 0 };
+let selectionRect = null;
+let selectedIcons = new Set();
+let isCtrlHeldDuringSelection = false;
+
+let isDraggingIcon = false;
+let dragStartPos = { x: 0, y: 0 };
+let iconStartPositions = new Map();
+
 class Window {
   constructor(container) {
     this.container = container;
@@ -240,12 +257,7 @@ class Terminal {
       },
     };
 
-    const welcome = `Fakerosoft Fakedows 98 [Version 4.10.1998]
-(C) Copyright Fakerosoft Corp 1981-1998.
-
-Type "help" for available commands.
-
-`;
+    const welcome = `Fakerosoft Fakedows 98 [Version 4.10.1998]\n(C) Copyright Fakerosoft Corp 1981-1998.\n\nType "help" for available commands.\n\n`;
     this.output.innerHTML = welcome;
 
     this.input.addEventListener("keydown", (e) => {
@@ -338,20 +350,7 @@ Type "help" for available commands.
   }
 
   showHelp() {
-    const helpText = `Available commands:
-
-ls          - List files and directories
-cat         - Display file contents (usage: cat <filename>)
-help        - Show this help message
-clear       - Clear the terminal screen
-pwd         - Show current directory path
-
-Try these files:
-- about.txt
-- projects.txt
-- contact.txt
-- skills.txt
-- readme.txt`;
+    const helpText = `Available commands:\n\nls          - List files and directories\ncat         - Display file contents (usage: cat <filename>)\nhelp        - Show this help message\nclear       - Clear the terminal screen\npwd         - Show current directory path\n\nTry these files:\n- about.txt\n- projects.txt\n- contact.txt\n- skills.txt\n- readme.txt`;
 
     this.addToOutput(helpText, "success");
   }
@@ -373,11 +372,11 @@ Try these files:
   }
 }
 
-function createNewTerminal(cssOverrides = {}, focus=true) {
+function createNewTerminal(cssOverrides = {}, focus = true) {
   terminalCounter++;
 
-  const outputId = `terminal-output-${terminalCounter}`;
-  const inputId = `terminal-input-${terminalCounter}`;
+  const terminalTemplate = document.getElementById("terminal-template");
+  const newTerminalContainer = terminalTemplate.content.cloneNode(true);
 
   const defaultStyles = {
     position: "absolute",
@@ -389,36 +388,34 @@ function createNewTerminal(cssOverrides = {}, focus=true) {
 
   const finalStyles = { ...defaultStyles, ...cssOverrides };
 
-  const newTerminalContainer = document.createElement("div");
-  newTerminalContainer.className = "window-container";
-  Object.assign(newTerminalContainer.style, finalStyles);
+  const windowContainer = document.createElement("div");
+  windowContainer.className = "window-container";
+  Object.assign(windowContainer.style, finalStyles);
+  windowContainer.appendChild(newTerminalContainer);
 
-  newTerminalContainer.innerHTML = createTerminalHTML(outputId, inputId);
-  document.body.appendChild(newTerminalContainer);
+  document.body.appendChild(windowContainer);
 
-  windows.set(newTerminalContainer, new Window(newTerminalContainer));
+  windows.set(windowContainer, new Window(windowContainer));
 
-  const outputElement = document.getElementById(outputId);
-  const inputElement = document.getElementById(inputId);
+  const outputElement = windowContainer.querySelector(".terminal-output");
+  const inputElement = windowContainer.querySelector(".terminal-input");
   const newTerminal = new Terminal(outputElement, inputElement);
 
-  if (focus)
-    inputElement.focus();
+  if (focus) inputElement.focus();
 
-  const windowManager = windows.get(newTerminalContainer);
+  const windowManager = windows.get(windowContainer);
   if (windowManager) {
-    if (focus)
-      windowManager.focusWindow();
+    if (focus) windowManager.focusWindow();
   }
 }
 
-function createNewAboutMe(cssOverrides = {}, focus=true) {
+function createNewAboutMe(cssOverrides = {}, focus = true) {
   aboutCounter++;
 
-  const newAboutContainer = document.createElement("div");
-  newAboutContainer.className = "window-container";
+  const aboutMeTemplate = document.getElementById("about-me-template");
+  const newAboutContainer = aboutMeTemplate.content.cloneNode(true);
 
-  defaultStyles = {
+  const defaultStyles = {
     position: "absolute",
     width: "350px",
     height: "400px",
@@ -427,140 +424,20 @@ function createNewAboutMe(cssOverrides = {}, focus=true) {
   };
 
   const finalStyles = { ...defaultStyles, ...cssOverrides };
-  Object.assign(newAboutContainer.style, finalStyles);
 
-  newAboutContainer.innerHTML = createAboutMeHTML();
-  document.body.appendChild(newAboutContainer);
+  const windowContainer = document.createElement("div");
+  windowContainer.className = "window-container";
+  Object.assign(windowContainer.style, finalStyles);
+  windowContainer.appendChild(newAboutContainer);
 
-  windows.set(newAboutContainer, new Window(newAboutContainer));
+  document.body.appendChild(windowContainer);
 
-  const windowManager = windows.get(newAboutContainer);
+  windows.set(windowContainer, new Window(windowContainer));
+
+  const windowManager = windows.get(windowContainer);
   if (windowManager) {
-    if (focus)
-      windowManager.focusWindow();
+    if (focus) windowManager.focusWindow();
   }
-}
-
-function createTerminalHTML(outputId, inputId) {
-  return `
-    <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">Terminal - yatin.cc</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button class="maximize-button" aria-label="Maximize"></button>
-          <button aria-label="Close" onclick="this.closest('.window-container').remove()"></button>
-        </div>
-      </div>
-      <div class="window-body terminal-body" style="height: calc(100% - 60px);">
-        <div class="terminal-output" id="${outputId}"></div>
-        <div class="terminal-input-line">
-          <span class="terminal-prompt">C:\\></span>
-          <input
-            type="text"
-            class="terminal-input"
-            id="${inputId}"
-            autofocus
-          />
-        </div>
-      </div>
-      <!-- Resize Handles -->
-      <div class="resize-handle edge top"></div>
-      <div class="resize-handle edge bottom"></div>
-      <div class="resize-handle edge left"></div>
-      <div class="resize-handle edge right"></div>
-      <div class="resize-handle corner top-left"></div>
-      <div class="resize-handle corner top-right"></div>
-      <div class="resize-handle corner bottom-left"></div>
-      <div class="resize-handle corner bottom-right"></div>
-    </div>
-  `;
-}
-
-function createAboutMeHTML() {
-  return `
-    <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">About Me - yatin.cc</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button class="maximize-button" aria-label="Maximize"></button>
-          <button aria-label="Close" onclick="this.closest('.window-container').remove()"></button>
-        </div>
-      </div>
-      <div class="window-body" style="height: calc(100% - 60px); padding: 15px; background: #c0c0c0; overflow-y: auto; font-family: 'MS Sans Serif', sans-serif; font-size: 11px;">
-      <!-- <h3 style="margin: 0 0 10px 0; font-size: 12px;">Yatin Lala</h3> -->
-        <p style="margin: 0px 0;"><strong>Intro:</strong></p>
-        <!-- <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Intro:</h4> -->
-        <p style="margin: 10px 0 5px 0;">My name is Yatin. 👋</p>
-        <p style="margin: 0px 0 5px 0;">I enjoy spending time on software, music, and jogging. Let's get in touch!</p>
-
-     <!--    <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Skills:</h4> -->
-     <!--    <ul style="margin: 5px 0; padding-left: 20px;"> -->
-      <!--     <li>JavaScript/TypeScript</li> -->
-      <!--     <li>Python</li> -->
-      <!--     <li>React/Node.js</li> -->
-      <!--     <li>Web Development</li> -->
-      <!--     <li>System Design</li> -->
-      <!--   </ul> -->
-        
-        <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Contact:</h4>
-        <p style="margin: 5px 0;">Email: yatin [dot] lala [at] gmail [dot] com</p>
-        <p style="margin: 5px 0;">GitHub: <a href="https://github.com/yatinlala">github.com/yatinlala</a></p>
-        <p style="margin: 5px 0;">LinkedIn: <a href="https://linkedin.com/in/yatinlala">linkedin.com/in/yatinlala</a></p>
-
-        <h4 style="margin: 15px 0 5px 0; font-size: 11px;">Location:</h4>
-        <p>Bay Area</p>
-        
-        <ul class="tree-view">
-            <details open>
-              <summary>Todos:</summary>
-              <ul>
-                <li>
-                  <details>
-                    <summary>Fixes</summary>
-                    <ul>
-                      <li><strong>Mobile support (dragging windows is broken)</strong></li>
-                      <li>Make selected desktop icons look more like Win98</li>
-                      <li>De-OOP-ify the code (👿 claude)</li>
-                      <li>Move window templates into independent files?</li>
-                    </ul>
-                  </details>
-                  <details>
-                    <summary>Features</summary>
-                    <ul>
-                      <li>Right click menu</li>
-                      <li>Notepad</li>
-                      <li>Taskbar?</li>
-                      <summary>Terminal</summary>
-                      <ul>
-                        <li>Tab complete</li>
-                        <li>mkdir</li>
-                        <li>pipes</li>
-                        <li>vi</li>
-                    </ui>
-                  </details>
-                  </ul>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-
-      <p><i>Styling via <a href='https://jdan.github.io/98.css/'>98.css</a>. Cursors from <a href="http://www.rw-designer.com/cursor-set/windows-98">VladYtRO</a>. Favicon made using <a href='https://favicon.cc'>favicon.cc</a>.</i></p>
-      </div>
-
-      <!-- Resize Handles -->
-      <div class="resize-handle edge top"></div>
-      <div class="resize-handle edge bottom"></div>
-      <div class="resize-handle edge left"></div>
-      <div class="resize-handle edge right"></div>
-      <div class="resize-handle corner top-left"></div>
-      <div class="resize-handle corner top-right"></div>
-      <div class="resize-handle corner bottom-left"></div>
-      <div class="resize-handle corner bottom-right"></div>
-    </div>
-  `;
 }
 
 function setupIconHandlers() {
@@ -784,26 +661,12 @@ document.addEventListener("mousedown", (e) => {
     e.preventDefault();
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  createNewTerminal({ top: "30%", left: "50%" }, false);
+  createNewAboutMe({ top: "20%", left: "10%" }, false);
+  setupIconHandlers();
+});
+
 // }}}
 
-let terminalCounter = 1;
-let aboutCounter = 1;
-
-let windows = new Map();
-let activeWindow = null;
-let highestZIndex = 10;
-
-let isSelecting = false;
-let selectionStart = { x: 0, y: 0 };
-let selectionRect = null;
-let selectedIcons = new Set();
-let isCtrlHeldDuringSelection = false;
-
-let isDraggingIcon = false;
-let dragStartPos = { x: 0, y: 0 };
-let iconStartPositions = new Map();
-
-createNewTerminal({ top: "30%", left: "50%" }, focus=false);
-createNewAboutMe({top: "20%", left: "10%"}, focus=false);
-
-setupIconHandlers();
