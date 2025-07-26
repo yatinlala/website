@@ -12,6 +12,11 @@ body {
   height: 100%;
 }
 
+/* for some reason body cursor setting doesn't apply to buttons */
+button {
+  cursor: url('cursors/Cursor79.cur'), pointer;
+}
+
 .title-bar {
   cursor: url('cursors/Cursor107.cur'), grab;
 }
