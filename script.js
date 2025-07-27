@@ -418,7 +418,7 @@ function createNewAboutMe(cssOverrides = {}, focus = true) {
   const defaultStyles = {
     position: "absolute",
     width: "350px",
-    height: "400px",
+    height: "410px",
     top: `${80 + aboutCounter * 25}px`,
     left: `${150 + aboutCounter * 25}px`,
   };
