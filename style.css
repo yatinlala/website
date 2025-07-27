@@ -5,16 +5,20 @@ body {
   font-family: "MS Sans Serif", sans-serif;
   overflow: hidden;
   min-height: 100vh;
-  cursor: url('cursors/Cursor79.cur'), pointer;
+  cursor: url('cursors/Cursor79.cur'), default;
 }
 
 .window {
   height: 100%;
 }
 
+a {
+  cursor: url('cursors/Cursor107.cur'), pointer;
+}
+
 /* for some reason body cursor setting doesn't apply to buttons */
 button {
-  cursor: url('cursors/Cursor79.cur'), pointer;
+  cursor: url('cursors/Cursor79.cur'), default;
 }
 
 .title-bar {
