@@ -1,4 +1,4 @@
-let windows = new Map();
+let windows = [];
 let terminalCounter = 1;
 let aboutCounter = 1;
 
@@ -183,9 +183,9 @@ class Window {
     this.container.style.setProperty("--window-z-index", highestZIndex);
     this.container.classList.add("active");
 
-    windows.forEach((manager, container) => {
-      if (container !== this.container) {
-        container.classList.remove("active");
+    windows.forEach(manager => {
+      if (manager.container !== this.container) {
+        manager.container.classList.remove("active");
       }
     });
   }
@@ -395,7 +395,8 @@ function createNewTerminal(cssOverrides = {}, focus = true) {
 
   document.body.appendChild(windowContainer);
 
-  windows.set(windowContainer, new Window(windowContainer));
+  const windowManager = new Window(windowContainer);
+  windows.push(windowManager);
 
   const outputElement = windowContainer.querySelector(".terminal-output");
   const inputElement = windowContainer.querySelector(".terminal-input");
@@ -403,10 +404,7 @@ function createNewTerminal(cssOverrides = {}, focus = true) {
 
   if (focus) inputElement.focus();
 
-  const windowManager = windows.get(windowContainer);
-  if (windowManager) {
-    if (focus) windowManager.focusWindow();
-  }
+  if (focus) windowManager.focusWindow();
 }
 
 function createNewAboutMe(cssOverrides = {}, focus = true) {
@@ -432,12 +430,10 @@ function createNewAboutMe(cssOverrides = {}, focus = true) {
 
   document.body.appendChild(windowContainer);
 
-  windows.set(windowContainer, new Window(windowContainer));
+  const windowManager = new Window(windowContainer);
+  windows.push(windowManager);
 
-  const windowManager = windows.get(windowContainer);
-  if (windowManager) {
-    if (focus) windowManager.focusWindow();
-  }
+  if (focus) windowManager.focusWindow();
 }
 
 function setupIconHandlers() {
@@ -669,4 +665,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // }}}
-
