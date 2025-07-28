@@ -27,6 +27,7 @@ class Window {
     this.minWidth = 350;
     this.minHeight = 300;
     this.savedState = null;
+    this.terminal = null;
 
     this.initWindowControls();
   }
@@ -58,6 +59,13 @@ class Window {
     this.maximizeButton.addEventListener("click", () => {
       this.toggleMaximize();
     });
+
+    const closeButton = this.container.querySelector('[aria-label="Close"]');
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        this.close();
+      });
+    }
   }
 
   startDrag(e) {
@@ -219,6 +227,17 @@ class Window {
       this.container.style.transform = "none";
     }
   }
+
+  close() {
+    const index = windows.findIndex(manager => manager.container === this.container);
+    if (index !== -1) {
+      windows.splice(index, 1);
+    }
+    if (this.terminal) {
+      this.terminal.destroy();
+    }
+    this.container.remove();
+  }
 }
 
 class Terminal {
@@ -260,7 +279,7 @@ class Terminal {
     const welcome = `Fakerosoft Fakedows 98 [Version 4.10.1998]\n(C) Copyright Fakerosoft Corp 1981-1998.\n\nType "help" for available commands.\n\n`;
     this.output.innerHTML = welcome;
 
-    this.input.addEventListener("keydown", (e) => {
+    this.keydownHandler = (e) => {
       if (e.key === "Enter") {
         const command = this.input.value.trim();
         if (command) {
@@ -271,7 +290,8 @@ class Terminal {
         }
         this.input.value = "";
       }
-    });
+    };
+    this.input.addEventListener("keydown", this.keydownHandler);
   }
 
   executeCommand(command) {
@@ -370,6 +390,12 @@ class Terminal {
     chatWindow.scrollTop = chatWindow.scrollHeight;
     this.input.focus();
   }
+
+  destroy() {
+    if (this.keydownHandler) {
+      this.input.removeEventListener("keydown", this.keydownHandler);
+    }
+  }
 }
 
 function createNewTerminal(cssOverrides = {}, focus = true) {
@@ -401,6 +427,7 @@ function createNewTerminal(cssOverrides = {}, focus = true) {
   const outputElement = windowContainer.querySelector(".terminal-output");
   const inputElement = windowContainer.querySelector(".terminal-input");
   const newTerminal = new Terminal(outputElement, inputElement);
+  windowManager.terminal = newTerminal;
 
   if (focus) inputElement.focus();
 
