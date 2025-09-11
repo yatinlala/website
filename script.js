@@ -686,7 +686,7 @@ document.addEventListener("mousedown", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  createNewTerminal({ top: "30%", left: "50%" }, false);
+  // createNewTerminal({ top: "30%", left: "50%" }, false);
   createNewAboutMe({ top: "20%", left: "10%" }, false);
   setupIconHandlers();
 });
