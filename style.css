@@ -205,13 +205,17 @@ button {
   left: 20px;
 }
 
-.desktop-icon:hover {
-  background: rgba(255, 255, 255, 0.1);
+.desktop-icon.selected .desktop-icon-image {
+  background: #000080;
+  border-color: #000080;
 }
 
-.desktop-icon.selected {
-  background: rgba(0, 0, 255, 0.3);
-  border: 1px dotted white;
+.desktop-icon.selected .desktop-icon-label {
+  background: #000080;
+  color: white;
+  text-shadow: none;
+  padding: 1px 2px;
+  border: 1px dashed white;
 }
 
 .desktop-icon-image {
