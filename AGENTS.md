@@ -1,0 +1,3 @@
+- Never edit any files unless I explicitly give you permission. 
+- Keep responses and code examples minimal. 
+- Omit including settings in code examples that merely restate defaults unless necessary for the task.
