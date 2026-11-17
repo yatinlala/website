@@ -1,68 +1,52 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Yatin Lala</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-   <button id="theme-toggle" aria-label="Switch colour theme">[ light /
- dark ]</button>
-    <header>
-      <a href="/" aria-label="Yatin Lala">
-        <pre>
-                     $$\     $$\                 $$\           $$\           
-                     $$ |    \__|                $$ |          $$ |          
-$$\   $$\  $$$$$$\ $$$$$$\   $$\ $$$$$$$\        $$ | $$$$$$\  $$ | $$$$$$\  
-$$ |  $$ | \____$$\\_$$  _|  $$ |$$  __$$\       $$ | \____$$\ $$ | \____$$\ 
-$$ |  $$ | $$$$$$$ | $$ |    $$ |$$ |  $$ |      $$ | $$$$$$$ |$$ | $$$$$$$ |
-$$ |  $$ |$$  __$$ | $$ |$$\ $$ |$$ |  $$ |      $$ |$$  __$$ |$$ |$$  __$$ |
-\$$$$$$$ |\$$$$$$$ | \$$$$  |$$ |$$ |  $$ |      $$ |\$$$$$$$ |$$ |\$$$$$$$ |
- \____$$ | \_______|  \____/ \__|\__|  \__|      \__| \_______|\__| \_______|
-$$\   $$ |                                                                   
-\$$$$$$  |                                                                   
- \______/                                                                    </pre>
-      </a>
-    </header>
+    <pre id="scroll-progress" aria-hidden="true"></pre>
+    <CUSTOM_HEADER>
     <main>
       <h1>About</h1>
       <p>
-        I am presently a Masters student of Computer Engineering at
-        USC in LA.
+        I am presently a Computer Engineering Masters student at USC in LA.
       </p>
-      <p>Current interests:</p>
+      <p>My interests include:</p>
       <ul>
-        <li>property based testing / DST</li>
-        <li>parallel programming</li>
+        <li>graph compilers</li>
         <li>programming language design</li>
+        <li>software testing techniques</li>
       </ul>
       <p>
-      If you've found my page, please reach out -- I'd love to talk to you. My email is my first name dot my 
+        You can reach out to me via email. My address is my first name dot my
         last name on gmail.
       </p>
+
       <h1>Writing</h1>
-      <hr />
+        <a href="/writing/learning-from-antirez">Learning from antirez</a>
       <h1>Projects</h1>
       <hr />
       <h1>Links</h1>
-   <ul>
-     <li><a href="https://github.com/yatinlala">GitHub</a></li>
-     <li><a href="https://www.linkedin.com/in/yatinlala/">LinkedIn</a></li>
-   </ul>
+      <ul>
+        <li><a href="https://github.com/yatinlala">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/yatinlala/">LinkedIn</a></li>
+        <li>
+          Blogs I love:
+          <ul>
+            <li><a href="https://apenwarr.ca">apenwarr</a></li>
+            <li><a href="https://corsix.org">corsix</a></li>
+            <li><a href="https://matklad.github.io">matklad</a></li>
+            <li><a href="https://buttondown.com/hillelwayne">Hillel Wayne</a></li>
+            <li><a href="https://isaacfreund.com/blog/">Isaac Freund</a></li>
+            <li><a href="https://jvns.ca">Julia Evans</a></li>
+          </ul>
+        </li>
+      </ul>
     </main>
-    <script>
-      const root = document.documentElement;
-      const button = document.querySelector("#theme-toggle");
-
-      root.style.colorScheme = localStorage.getItem("theme") || "dark";
-
-      button.addEventListener("click", () => {
-        const theme =
-          getComputedStyle(root).colorScheme === "dark" ? "light" : "dark";
-
-        root.style.colorScheme = theme;
-        localStorage.setItem("theme", theme);
-      });
-    </script>
+    <CUSTOM_FOOTER>
+    <script src="/script.js"></script> 
   </body>
 </html>

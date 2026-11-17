@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "CMU Typewriter";
+  src: url("fonts/cmuntt.ttf") format("truetype");
+}
+
+html {
+  color-scheme: dark;
+  background-color: light-dark(#f3ebd9, #1d2021);
+  color: light-dark(#1d2021, #f3ebd9);
+  font-size: 120%;
+}
+
+main a:hover {
+  background-color: light-dark(#1d2021, #f3ebd9);
+  color: light-dark(#f3ebd9, #1d2021);
+  text-decoration: none;
+}
+
+header {
+  /* font-size: 0.45rem; */
+  font-size: clamp(0.3rem, 1vw, 0.5rem);
+  text-align: center;
+  line-height: 1;
+}
+
+footer {
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: light-dark(#686052, #a69f8e);
+  text-align: center;
+}
+/* @media (min-width: 48rem) { */
+/*   header { */
+/*     font-size: 0.7rem; */
+/*   } */
+/* } */
+
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "CMU Typewriter", monospace;
+  max-width: 65ch;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+a {
+  color: #458588;
+}
+
+h1 {
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  gap: 1ch;
+  font-size: 1rem;
+  white-space: nowrap;
+  max-width: 30ch;
+  margin-inline: auto;
+}
+
+h1::before,
+h1::after {
+  content: "==================";
+  flex: 1;
+  overflow: hidden;
+}
+
+hr {
+  width: 1ch;
+}
+
+#theme-toggle {
+  font: inherit;
+  font-size: 0.9rem;
+  display: none;
+  margin-left: auto;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+#scroll-progress {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+@media (max-width: 48rem) {
+  #scroll-progress {
+    top: 0;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    background-color: light-dark(#f3ebd9, #1d2021);
+  }
+  body {
+    padding-top: .7rem;
+  }
+}
